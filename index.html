@@ -156,14 +156,35 @@
             }
         }
 
+        /* 音乐播放按钮样式（解决自动播放问题） */
+        .play-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, #8ac8ff, #ffb6c9);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: transform 0.2s;
+        }
+        .play-btn:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
 <body>
     <h1 class="title">🎂 <span>生日快乐</span> 🎂</h1>
 
+    <!-- 用相对路径，直接读取仓库里的本地文件，绝对不会失效 -->
     <div class="cake-box">
-        <img class="cake-img" src="qcf.gif" alt="蛋糕">
+        <img class="cake-img" src="./qcf.gif" alt="蛋糕">
     </div>
 
     <div class="wish-card">
@@ -175,9 +196,13 @@
 
     <div class="from">—— YANG 🎈</div>
 
-    <audio autoplay loop>
-        <source src="birthday.mp3" type="audio/mpeg">
-    </audio>
+    <!-- 音乐标签，加了id方便JS控制 -->
+    <audio id="bgMusic" loop>
+        <source src="./happy.mp3" type="audio/mpeg">
+    
+
+    <!-- 手动播放按钮，彻底解决浏览器自动播放限制 -->
+    <button class="play-btn" id="playBtn">🎵</button>
 
     <script>
         // 生成星星
@@ -239,6 +264,23 @@
             setTimeout(()=>petal.remove(),dur*1000);
         }
         setInterval(createPetal,280);
+
+        // 音乐播放控制（解决自动播放问题）
+        const music = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+        let isPlaying = false;
+
+        playBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                music.play();
+                playBtn.textContent = '🔇';
+                isPlaying = true;
+            } else {
+                music.pause();
+                playBtn.textContent = '🎵';
+                isPlaying = false;
+            }
+        });
     </script>
 </body>
 </html>
