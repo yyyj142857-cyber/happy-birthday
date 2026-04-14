@@ -13,26 +13,22 @@
             box-sizing: border-box;
         }
 
-      
         body {
             min-height: 100vh;
             background: linear-gradient(45deg, #d1eaff, #ffd6e4, #e0f0ff, #ffdae6);
             background-size: 400% 400%;
             animation: bgGradient 18s ease infinite;
             overflow: hidden;
-         
             font-family: "Short Stack", "Ma Shan Zheng", "ZCOOL KuaiLe", "幼圆", cursive, sans-serif;
             position: relative;
         }
 
-   
         @keyframes bgGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-       
         .star {
             position: absolute;
             background: white;
@@ -45,7 +41,6 @@
             50% { opacity: 1; }
         }
 
-    
         .title {
             text-align: center;
             padding-top: 40px;
@@ -54,7 +49,6 @@
             text-shadow: 0 3px 10px rgba(0,0,0,0.1);
             position: relative;
             z-index: 10;
-        
             font-family: "Short Stack", "Ma Shan Zheng", cursive, sans-serif;
         }
         .title span {
@@ -64,14 +58,12 @@
             color: transparent;
         }
 
-        /* 蛋糕图片盒子 */
         .cake-box {
             text-align: center;
             margin: 20px 0;
             position: relative;
             z-index: 10;
         }
-        /* 蛋糕图片样式 */
         .cake-img {
             width: 300px;
             height: 300px;
@@ -91,7 +83,6 @@
             50% { transform: translateY(-12px); }
         }
 
-        /* 祝福卡片 */
         .wish-card {
             width: 620px;
             margin: 0 auto;
@@ -110,7 +101,6 @@
             color: #333;
             line-height: 1.8;
             margin: 8px 0;
-            /* 卡片手写体 */
             font-family: "Short Stack", "ZCOOL KuaiLe", cursive, sans-serif;
         }
         .name {
@@ -124,7 +114,6 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* 署名 */
         .from {
             text-align: center;
             margin-top: 25px;
@@ -133,11 +122,9 @@
             text-shadow: 0 1px 3px rgba(255,255,255,0.8);
             position: relative;
             z-index: 10;
-            /* 署手写体 */
             font-family: "Short Stack", "Ma Shan Zheng", cursive, sans-serif;
         }
 
-        /* 飘落元素 */
         .petal {
             position: absolute;
             font-size: 22px;
@@ -156,7 +143,7 @@
             }
         }
 
-        /* 音乐播放按钮样式（解决自动播放问题） */
+        /* 音乐按钮样式 */
         .play-btn {
             position: fixed;
             bottom: 30px;
@@ -182,7 +169,6 @@
 <body>
     <h1 class="title">🎂 <span>生日快乐</span> 🎂</h1>
 
-    <!-- 用相对路径，直接读取仓库里的本地文件，绝对不会失效 -->
     <div class="cake-box">
         <img class="cake-img" src="./qcf.gif" alt="蛋糕">
     </div>
@@ -196,12 +182,10 @@
 
     <div class="from">—— YANG 🎈</div>
 
-    <!-- 音乐标签，加了id方便JS控制 -->
     <audio id="bgMusic" loop>
         <source src="./happy.mp3" type="audio/mpeg">
     
 
-    <!-- 手动播放按钮，彻底解决浏览器自动播放限制 -->
     <button class="play-btn" id="playBtn">🎵</button>
 
     <script>
@@ -222,7 +206,7 @@
         }
         createStars();
 
-        // 点击烟花（浅蓝+樱花粉）
+        // 点击烟花
         function createFirework(x,y) {
             const colors = ['#8ac8ff','#ffb6c9','#d1eaff','#ffd6e4'];
             const fw = document.createElement('div');
@@ -251,6 +235,7 @@
         }
         document.addEventListener('click',e=>createFirework(e.clientX,e.clientY));
 
+        // 飘落花瓣
         function createPetal(){
             let petal = document.createElement('div');
             petal.className = 'petal';
@@ -265,11 +250,12 @@
         }
         setInterval(createPetal,280);
 
-        // 音乐播放控制（解决自动播放问题）
+        // 音乐双触发控制：按钮+页面任意点击
         const music = document.getElementById('bgMusic');
         const playBtn = document.getElementById('playBtn');
         let isPlaying = false;
 
+        // 按钮触发
         playBtn.addEventListener('click', () => {
             if (!isPlaying) {
                 music.play();
@@ -281,6 +267,15 @@
                 isPlaying = false;
             }
         });
+
+        // 页面任意位置点击触发（优先级低于按钮，防止重复触发）
+        document.addEventListener('click', () => {
+            if (!isPlaying) {
+                music.play();
+                playBtn.textContent = '🔇';
+                isPlaying = true;
+            }
+        }, { once: false });
     </script>
 </body>
 </html>
