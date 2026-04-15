@@ -139,13 +139,13 @@
 
     <div class="from">          —— YANG 🎈</div>
 
-    <!-- 音乐：自动播放，打开就唱 -->
+    
     <audio autoplay loop id="bgm">
         <source src="./happy.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // 自动播放音乐（突破浏览器限制！）
+     
         window.onload = function() {
             let audio = document.getElementById('bgm');
             setTimeout(() => {
@@ -155,7 +155,7 @@
             }, 500);
         };
 
-        // 星星
+      
         function createStars() {
             for (let i=0; i<50; i++) {
                 let star = document.createElement('div');
@@ -171,7 +171,7 @@
         }
         createStars();
 
-        // 烟花
+ 
         document.addEventListener('click',(e)=>{
             let colors = ['#8ac8ff','#ffb6c9','#d1eaff','#ffd6e4'];
             let fw = document.createElement('div');
@@ -198,7 +198,7 @@
             setTimeout(()=>fw.remove(),2000);
         });
 
-        // 花瓣
+       
         setInterval(()=>{
             let p = document.createElement('div');
             p.className='petal';
